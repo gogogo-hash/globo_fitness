@@ -3,6 +3,7 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches: [main]  # or 'master' — change if needed
+  workflow_dispatch:
 
 jobs:
   build:
@@ -28,3 +29,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./build/web
+        force_orphan: true
