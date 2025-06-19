@@ -1,4 +1,4 @@
-name: GitHub Pages
+name: Deploy Flutter Web to GitHub Pages
 
 on:
   push:
@@ -18,14 +18,20 @@ jobs:
 
       - name: Setup Flutter
         run: |
-          git clone https://github.com/gogogo-hash/globo_fitness.git
-          
-      - name: Build
+          git clone https://github.com/flutter/flutter.git --depth 1 -b stable _flutter
+          echo "${GITHUB_WORKSPACE}/_flutter/bin" >> ${GITHUB_PATH}
+
+      - name: Install dependencies
+        run: |
+          flutter config --enable-web
+          flutter pub get
+
+      - name: Build web
         run: flutter build web
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
-        
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
