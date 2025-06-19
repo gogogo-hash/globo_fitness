@@ -22,7 +22,7 @@ jobs:
       run: flutter pub get
 
     - name: Build web
-      run: flutter build web --base-href /globo_fitness/
+      run: flutter build web --base-href /globo_fitness/lib/
 
     - name: Verify build output
       run: ls -lR ./build/web
